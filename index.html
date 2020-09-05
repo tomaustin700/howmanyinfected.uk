@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HowManyInfected.uk</title>
+    <link rel="stylesheet" href="site.css" />
+</head>
+
+<div>
+
+</div>
+
+<script src="lib/jquery/dist/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+    var formattedDate
+
+    function getDateParam(subtractionAmount) {
+        var d = new Date();
+        d.setDate(d.getDate() - subtractionAmount);
+        var dd = String(d.getDate()).padStart(2, '0');
+        var mm = String(d.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = d.getFullYear();
+
+        date = yyyy + '-' + mm + '-' + dd;
+
+        return date
+    }
+
+    $(document).ready(async function () {
+
+        formattedDate = getDateParam(0)
+        var newCases
+        var totalCases
+        var totalDeaths
+        var endpointStart = 'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=overview;date='
+        var endpointEnd = '&structure={"newCases":"newCasesByPublishDate","total":"cumCasesByPublishDate","deaths":"cumDeaths28DaysByPublishDate"}'
+
+
+        try {
+            await fetch(`${endpointStart}${formattedDate}${endpointEnd}`)
+                .then(response => response.json())
+                .then(data => {
+                    newCases = data.data[0].newCases
+                    totalCases = data.data[0].total
+                    totalDeaths = data.data[0].deaths
+                }
+                );
+        } catch {
+            formattedDate = getDateParam(1)
+            await fetch(`${endpointStart}${formattedDate}${endpointEnd}`)
+                .then(response => response.json())
+                .then(data => {
+                    newCases = data.data[0].newCases
+                    totalCases = data.data[0].total
+                    totalDeaths = data.data[0].deaths
+                }
+                );
+        }
+
+        console.log(newCases)
+        console.log(totalCases)
+        console.log(totalDeaths)
+
+
+
+    })
+
+
+
+
+
+
+</script>
+
+</html>
