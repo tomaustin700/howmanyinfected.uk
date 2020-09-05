@@ -1,16 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HowManyInfected.uk</title>
     <link rel="stylesheet" href="site.css" />
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 
-<div>
+    <style>
+        body,h1 {font-family: "Raleway", sans-serif}
+        body, html {height: 100%}
+        .bgimg {
+         
+          min-height: 100%;
+          background-position: center;
+          background-size: cover;
+        }
+        </style>
 
-</div>
+
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-black">
+    
+    <div class="w3-display-middle">
+      <h1 id="newcases" class="w3-jumbo">Loading</h1>
+      <p class="w3-large w3-center">new cases</p>
+      <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <p id="totalCases" class="w3-large w3-center"></p>
+      <p id="totalDeaths"  class="w3-large w3-center"></p>
+    </div>
+    <div class="w3-display-bottomleft w3-padding-large">
+      Built by <a href="https://twitter.com/tomaustin700" target="_blank">Tom Austin</a>
+    </div>
+  </div>
 
 <script src="lib/jquery/dist/jquery.min.js"></script>
 
@@ -61,9 +85,13 @@
                 );
         }
 
-        console.log(newCases)
-        console.log(totalCases)
-        console.log(totalDeaths)
+        document.getElementById("newcases").textContent = `${newCases}`;
+        document.getElementById("totalCases").textContent = `${totalCases} total cases`;
+        document.getElementById("totalDeaths").textContent = `${totalDeaths} total deaths`;
+
+        // console.log(newcases)
+        // console.log(totalCases)
+        // console.log(totalDeaths)
 
 
 
