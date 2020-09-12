@@ -29,6 +29,7 @@
       <h1 id="newCases" class="w3-jumbo centre-align">Loading</h1>
       <p id="newCaseDate" class="w3-large w3-center">new cases</p>
       <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <p id="newDeaths" class="w3-large w3-center"></p>
       <p id="totalCases" class="w3-large w3-center"></p>
       <p id="totalDeaths"  class="w3-large w3-center"></p>
     </div>
@@ -62,8 +63,9 @@
         var totalCases
         var totalDeaths
         var date
+        var deaths
         var endpointStart = 'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=overview;date='
-        var endpointEnd = '&structure={"date":"date","newCases":"newCasesByPublishDate","total":"cumCasesByPublishDate","deaths":"cumDeaths28DaysByPublishDate"}'
+        var endpointEnd = '&structure={"date":"date","newCases":"newCasesByPublishDate","total":"cumCasesByPublishDate","totalDeaths":"cumDeaths28DaysByPublishDate","deaths":"newDeaths28DaysByPublishDate"}'
 
         var isMobile = false; //initiate as false
         // device detection
@@ -84,7 +86,8 @@
                 .then(data => {
                     newCases = data.data[0].newCases
                     totalCases = data.data[0].total
-                    totalDeaths = data.data[0].deaths
+                    totalDeaths = data.data[0].totalDeaths
+                    deaths = data.data[0].deaths
                     date = data.data[0].date
                 }
                 );
@@ -95,7 +98,8 @@
                 .then(data => {
                     newCases = data.data[0].newCases
                     totalCases = data.data[0].total
-                    totalDeaths = data.data[0].deaths
+                    totalDeaths = data.data[0].totalDeaths
+                    deaths = data.data[0].deaths
                     date = data.data[0].date
 
                 }
@@ -114,6 +118,7 @@
 
         $newCases.textContent = `${newCases}`;
         document.getElementById("totalCases").textContent = `${totalCases} total cases`;
+        document.getElementById("newDeaths").textContent = `${deaths} new deaths`;
         document.getElementById("totalDeaths").textContent = `${totalDeaths} total deaths`;
         document.getElementById("newCaseDate").textContent = `new cases as of ${da}-${mo}-${ye}`;
 
